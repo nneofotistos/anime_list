@@ -1,12 +1,13 @@
 require('dotenv').config();
 const express = require('express');
 const layouts = require('express-ejs-layouts');
+const axios = require('axios');
 const app = express();
 const flash = require('connect-flash');
 const session = require('express-session');
 const passport = require('./config/ppConfig');
 const isLoggedIn = require('./middleware/isLoggedIn');
-
+const {Anime, Manga, Episode} = require('./models');
 const SECRET_SESSION = process.env.SECRET_SESSION;
 console.log(SECRET_SESSION);
 
@@ -34,6 +35,20 @@ app.use((req, res, next) => {
   next();
 });
 
+// Anime.create({
+//   title: "One Punch Man",
+//   synopsis: "asldhf",
+//   airDate: 1,
+//   episodes: 10
+// })
+// .then(function(newAnime){
+//   console.log('NEW ANIME CREATED');
+//   console.log(newAnime.toJSON());
+// })
+// .catch(function(err){
+//   console.log('ERROR', err);
+// })
+
 app.get('/', (req, res) => {
   res.render('index');
 })
@@ -42,6 +57,21 @@ app.get('/', (req, res) => {
 app.get('/profile', isLoggedIn, (req, res) => {
   const { id, name, email } = req.user.get(); 
   res.render('profile', { id, name, email });
+});
+
+
+app.get('/anime', (req, res) => {
+  for (let i = 0; i < anime.length; i++) {
+    
+    
+  }
+  axios.get('')
+  .then(function(response){
+    res.render('anime/index', { anime: animeOne })
+  })
+  .catch(function(err){
+    console.log('ERROR', err);
+   })
 });
 
 // controllers
@@ -53,3 +83,15 @@ const server = app.listen(PORT, () => {
 });
 
 module.exports = server;
+
+function makeGetRequest(path) {
+  axios.get(path)
+  .then(function(response) {
+          console.log(response.data);
+      })
+      .catch(function(err){
+          console.log("ERROR!", err);
+      })
+  };
+
+makeGetRequest('https://api.jikan.moe/v3/anime/1/');

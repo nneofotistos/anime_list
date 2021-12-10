@@ -1,11 +1,15 @@
 {
   "development": {
-    "database": "express_authentication_development",
+    "username": "postgres",
+    "password": "Melimeli44!",
+    "database": "anime_list",
     "host": "127.0.0.1",
     "dialect": "postgres"
   },
   "test": {
-    "database": "express_authentication_test",
+    "username": "postgres",
+    "password": "Melimeli44!",
+    "database": "anime_list_test",
     "host": "127.0.0.1",
     "dialect": "postgres"
   },
