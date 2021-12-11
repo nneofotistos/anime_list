@@ -1,4 +1,20 @@
-<p>Title: <%= title %></p>
-<p>Synopsis: <%= synopsis %></p>
-<p>Date: <%= startDate %></p>
-<p>Chapters: <%= chapters %></p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HOME</title>
+</head>
+<body>
+    <h1>Manga</h1>
+    <% for( let index = 0; index < topManga.length; index++ ) { %>
+        <% let mangaItem = topManga[index] %>
+        <div>
+            <p><%= mangaItem.title %></div><p>
+            <img src="<%= mangaItem.image_url %>"" alt="">
+        </div>
+        <hr>
+    <% } %>
+</body>
+</html>

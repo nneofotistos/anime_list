@@ -8,10 +8,11 @@
 </head>
 <body>
     <h1>Anime</h1>
-    <% for( let index = 0; index < anime.length; index++ ) { %>
-        <% let animeItem = anime[index] %>
+    <% for( let index = 0; index < topAnime.length; index++ ) { %>
+        <% let animeItem = topAnime[index] %>
         <div>
             <p><%= animeItem.title %></div><p>
+            <img src="<%= animeItem.image_url %>"" alt="">
         </div>
         <hr>
     <% } %>
