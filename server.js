@@ -80,6 +80,39 @@ app.get('/manga', (req, res) => {
   })
 });
 
+app.get('/anime-page:id', function(req, res){
+  //you need place to go
+  //you want to go on click, using ID inside of the ROUTE(/animae-page:id)
+  //you need to build logic for getting the ID
+  //you need an ejs page pulling data from an API and revealing it on the page
+})
+
+app.get('/manga-page:id', function(req, res){
+  
+})
+
+
+app.get('/animePage', function(req,res){
+  let animeLink = axios.get('https://api.jikan.moe/v3/anime/'+idNum+'videos')
+  .then(function(response) {
+    let animeArray = [];
+    let objectArray = response.data.top;
+    let animeIndex = response.data.top.mal_id;
+    console.log(response.data.top[1].mal_id);
+    for(let i = 0; i < 50 ; i++){
+        
+      animeArray.push(Number(objectArray[i].mal_id));
+      console.log(animeArray);
+  //console.log('RESPONSING FOR EPISODES RIGHT HERE', response.data.top);
+        //res.render('animes/index', {animeTop: response.data.top});
+      }
+    })
+    .catch(function(err){
+        console.log("ERROR!", err);
+  })
+})
+
+
 // controllers
 app.use('/auth', require('./controllers/auth'));
 
