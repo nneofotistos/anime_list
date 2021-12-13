@@ -65,7 +65,7 @@ app.get('/profile', isLoggedIn, (req, res) => {
 });
 
 app.get('/anime', (req, res) => {
-  axios.get('https://api.jikan.moe/v3/top/anime/1')
+  axios.get('https://api.jikan.moe/v3/top/anime')
   .then(function(response) {
     console.log('TOP ANIME', response.data.top);
     res.render('anime/index', { topAnime: response.data.top });
@@ -73,43 +73,39 @@ app.get('/anime', (req, res) => {
 });
 
 app.get('/manga', (req, res) => {
-  axios.get('https://api.jikan.moe/v3/top/manga/1')
+  axios.get('https://api.jikan.moe/v3/top/manga')
   .then(function(response) {
     console.log('TOP MANGA', response.data.top);
     res.render('manga/index', { topManga: response.data.top });
   })
 });
 
-app.get('/anime-page:id', function(req, res){
-  //you need place to go
-  //you want to go on click, using ID inside of the ROUTE(/animae-page:id)
-  //you need to build logic for getting the ID
-  //you need an ejs page pulling data from an API and revealing it on the page
-})
-
-app.get('/manga-page:id', function(req, res){
-  
-})
 
 
-app.get('/animePage', function(req,res){
-  let animeLink = axios.get('https://api.jikan.moe/v3/anime/'+idNum+'videos')
-  .then(function(response) {
-    let animeArray = [];
-    let objectArray = response.data.top;
-    let animeIndex = response.data.top.mal_id;
-    console.log(response.data.top[1].mal_id);
-    for(let i = 0; i < 50 ; i++){
+
+app.get('/animePage/:id', function(req,res){
+  // let animeLink = ('https://api.jikan.moe/v3/anime/'+req.params.id+'videos')
+  // axios.get(animeLink)
+  // .then(function(response) {
+  //   let animeArray = [];
+  //   let objectArray = response.data.top;
+  //   // let animeIndex = response.data.top.mal_id;
+  //   let animeID = req.params.id;
+  //   console.log(response.data.top[1].mal_id);
+  //   for(let i = 0; i < 50 ; i++){
         
-      animeArray.push(Number(objectArray[i].mal_id));
-      console.log(animeArray);
-  //console.log('RESPONSING FOR EPISODES RIGHT HERE', response.data.top);
-        //res.render('animes/index', {animeTop: response.data.top});
-      }
-    })
-    .catch(function(err){
-        console.log("ERROR!", err);
-  })
+  //     animeArray.push(Number(objectArray[i].mal_id));
+  //     console.log(animeArray);
+  //     req.params.id = objectArray[i];
+  // //console.log('RESPONSING FOR EPISODES RIGHT HERE', response.data.top);
+  //       //res.render('animes/index', {animeTop: response.data.top});
+  //     }
+  //   })
+  //   .catch(function(err){
+  //       console.log("ERROR!", err);
+  // })
+
+  
 })
 
 
