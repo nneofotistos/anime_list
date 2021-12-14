@@ -10,6 +10,8 @@ const isLoggedIn = require('./middleware/isLoggedIn');
 const {Anime, Manga, Episode} = require('./models');
 const SECRET_SESSION = process.env.SECRET_SESSION;
 console.log(SECRET_SESSION);
+let animeArray = [];
+
 
 app.set('view engine', 'ejs');
 
@@ -83,31 +85,25 @@ app.get('/manga', (req, res) => {
 
 
 
-app.get('/animePage/:id', function(req,res){
-  // let animeLink = ('https://api.jikan.moe/v3/anime/'+req.params.id+'videos')
-  // axios.get(animeLink)
-  // .then(function(response) {
-  //   let animeArray = [];
-  //   let objectArray = response.data.top;
-  //   // let animeIndex = response.data.top.mal_id;
-  //   let animeID = req.params.id;
-  //   console.log(response.data.top[1].mal_id);
-  //   for(let i = 0; i < 50 ; i++){
-        
-  //     animeArray.push(Number(objectArray[i].mal_id));
-  //     console.log(animeArray);
-  //     req.params.id = objectArray[i];
-  // //console.log('RESPONSING FOR EPISODES RIGHT HERE', response.data.top);
-  //       //res.render('animes/index', {animeTop: response.data.top});
-  //     }
-  //   })
-  //   .catch(function(err){
-  //       console.log("ERROR!", err);
-  // })
+app.get('/anime/:id', function(req,res){
+  //req.params.id = animeArray[1];
+  let id = Number(req.params.id);
+  let animeLink = ('https://api.jikan.moe/v3/anime/'+id+'/videos')
+  axios.get(animeLink)
+  .then(function(response) {
+       //res.render('animePage/index', {fullmetal: response.data.episodes})
+       //console.log(response.data.episodes);
+       axios.get('https://api.jikan.moe/v3/anime/'+id+'/')
+       .then(function(resTwo){
+         //console.log('DATA RIGHT HEREEEEEEEEEEEEE', resTwo.data);
+        res.render('animePage/index', {fullmetal: response.data.episodes, fullmetalInfo: resTwo.data})
+       })
+      })
+      .catch(function(err){
+          console.log("ERROR!", err);
 
-  
-})
-
+    })
+  })
 
 // controllers
 app.use('/auth', require('./controllers/auth'));
@@ -130,3 +126,24 @@ function makeGetRequest(path) {
   };
 //makeGetRequest('https://api.jikan.moe/v3/anime/1/videos');
 // makeGetRequest('https://api.jikan.moe/v3/top/anime')
+function getIdArray(){
+  axios.get('https://api.jikan.moe/v3/top/anime')
+    .then(function(response) {
+      let objectArray = response.data.top;
+      //let animeIndex = response.data.top.mal_id;
+      //console.log('HERYYyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy', response.data.top[1].mal_id);
+      for(let i = 0; i < 50 ; i++){
+        
+          animeArray.push(Number(objectArray[i].mal_id));
+          console.log(animeArray);
+            }
+
+          })
+        .catch(function(err){
+            console.log("ERROR!", err);
+        })
+      }
+
+      getIdArray();
+      console.log(animeArray);
+  

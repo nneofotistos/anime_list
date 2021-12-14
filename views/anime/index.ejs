@@ -10,10 +10,11 @@
     <h1>Anime</h1>
     <% for( let index = 0; index < topAnime.length; index++ ) { %>
         <% let animeItem = topAnime[index] %>
+
         <div>
-            <p><%= animeItem.title %></div><p>
-            <a href="">    
-                <img src="<%= animeItem.image_url %>"" alt="">
+            <p><%= animeItem.title %><p>
+            <a href="http://localhost:3000/anime/<%= animeItem.mal_id %>">    
+            <img src="<%= animeItem.image_url %>"" alt="">
             </a>
         </div>
         <hr>
